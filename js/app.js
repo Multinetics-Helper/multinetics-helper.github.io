@@ -21,6 +21,7 @@ class MultinecticsApp {
         this.articles = [];
         this.currentResults = [];
         this.debounceTimer = null;
+        this.hasSearchQuery = false;
 
         // Modules
         this.searchEngine = new window.SearchEngine();
@@ -149,6 +150,8 @@ class MultinecticsApp {
     performSearch(query) {
         if (this.articles.length === 0) return;
 
+        this.hasSearchQuery = query.trim().length > 0;
+
         // Search
         let results = this.searchEngine.search(query);
 
@@ -163,6 +166,16 @@ class MultinecticsApp {
     render() {
         if (!this.resultsGrid) return;
 
+        // If there's a search query with no results, show empty state
+        if (this.hasSearchQuery && this.currentResults.length === 0) {
+            this.showEmpty(true);
+            this.resultsGrid.innerHTML = '';
+            if (this.resultsCount) {
+                this.resultsCount.textContent = '0';
+            }
+            return;
+        }
+
         const results = this.currentResults.length > 0
             ? this.currentResults
             : this.articles.map(a => ({ item: a, matches: [] }));
@@ -170,13 +183,6 @@ class MultinecticsApp {
         // Update count
         if (this.resultsCount) {
             this.resultsCount.textContent = results.length;
-        }
-
-        // Show empty state if no results
-        if (results.length === 0 && this.articles.length > 0) {
-            this.showEmpty(true);
-            this.resultsGrid.innerHTML = '';
-            return;
         }
 
         this.showEmpty(false);
@@ -372,7 +378,8 @@ class MultinecticsApp {
         const allKeywords = this.articles.flatMap(a => a.keywords || []);
         const uniqueKeywords = [...new Set(allKeywords.map(k => k.toLowerCase()))];
 
-        const yearsCount = years.length > 0 ? Math.max(...years) - Math.min(...years) : 0;
+        // Show years count (how many different years we have data for)
+        const yearsCount = years.length;
 
         if (window.animations) {
             window.animations.updateStats(this.articles.length, yearsCount, uniqueKeywords.length);
@@ -382,7 +389,7 @@ class MultinecticsApp {
             const statTopics = document.getElementById('statTopics');
 
             if (statArticles) statArticles.textContent = this.articles.length;
-            if (statYears) statYears.textContent = yearsCount + '+';
+            if (statYears) statYears.textContent = yearsCount > 0 ? yearsCount : this.articles.length;
             if (statTopics) statTopics.textContent = uniqueKeywords.length;
         }
     }
