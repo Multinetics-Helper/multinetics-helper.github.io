@@ -40,6 +40,8 @@ class MultinecticsApp {
             this.setupFilters();
             this.setupModal();
             this.setupKeyboardShortcuts();
+            this.setupMobileNav();
+            this.initMarquee();
             this.render();
             this.updateStats();
         } catch (error) {
@@ -143,6 +145,111 @@ class MultinecticsApp {
                 e.preventDefault();
                 this.searchInput?.focus();
             }
+        });
+    }
+
+    // Setup mobile navigation
+    setupMobileNav() {
+        const burgerMenu = document.getElementById('burgerMenu');
+        const mobileNav = document.getElementById('mobileNav');
+
+        if (!burgerMenu || !mobileNav) return;
+
+        burgerMenu.addEventListener('click', () => {
+            burgerMenu.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+            document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Close nav when clicking a link
+        mobileNav.querySelectorAll('.mobile-nav__link').forEach(link => {
+            link.addEventListener('click', () => {
+                burgerMenu.classList.remove('active');
+                mobileNav.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Close on escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobileNav.classList.contains('active')) {
+                burgerMenu.classList.remove('active');
+                mobileNav.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+
+    // Initialize topics marquee
+    initMarquee() {
+        const track = document.getElementById('marqueeTrack');
+        if (!track || this.articles.length === 0) return;
+
+        // Get unique keywords with counts
+        const keywordCount = {};
+        this.articles.forEach(article => {
+            (article.keywords || []).forEach(keyword => {
+                const k = keyword.toLowerCase().trim();
+                if (k.length > 2) {
+                    keywordCount[k] = (keywordCount[k] || 0) + 1;
+                }
+            });
+        });
+
+        // Sort by count and get top topics
+        const topTopics = Object.entries(keywordCount)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 30)
+            .map(([keyword]) => keyword);
+
+        // Icon mapping for common topics
+        const getIcon = (topic) => {
+            const t = topic.toLowerCase();
+            if (t.includes('machine') || t.includes('learning') || t.includes('ai')) return '🤖';
+            if (t.includes('web') || t.includes('website')) return '🌐';
+            if (t.includes('mobile') || t.includes('android') || t.includes('ios')) return '📱';
+            if (t.includes('security') || t.includes('cyber')) return '🔐';
+            if (t.includes('data') || t.includes('mining') || t.includes('database')) return '📊';
+            if (t.includes('network') || t.includes('jaringan')) return '🔗';
+            if (t.includes('iot') || t.includes('internet of things')) return '📡';
+            if (t.includes('image') || t.includes('vision') || t.includes('gambar')) return '🖼️';
+            if (t.includes('game') || t.includes('edukasi')) return '🎮';
+            if (t.includes('sistem') || t.includes('system') || t.includes('informasi')) return '💻';
+            if (t.includes('analysis') || t.includes('analisis')) return '📈';
+            if (t.includes('design') || t.includes('ui') || t.includes('ux')) return '🎨';
+            if (t.includes('arduino') || t.includes('raspberry') || t.includes('sensor')) return '🔌';
+            if (t.includes('health') || t.includes('kesehatan') || t.includes('medical')) return '🏥';
+            if (t.includes('sentiment') || t.includes('nlp') || t.includes('text')) return '💬';
+            if (t.includes('classification') || t.includes('klasifikasi')) return '📋';
+            if (t.includes('detection') || t.includes('deteksi')) return '🔍';
+            if (t.includes('prediction') || t.includes('prediksi')) return '🔮';
+            if (t.includes('algorithm') || t.includes('algoritma')) return '⚙️';
+            if (t.includes('cloud') || t.includes('server')) return '☁️';
+            return '📚';
+        };
+
+        // Create chips HTML (duplicate for seamless loop)
+        const createChips = () => topTopics.map(topic => `
+            <button class="topic-chip" data-topic="${this.escapeHtml(topic)}">
+                <span class="topic-chip__icon">${getIcon(topic)}</span>
+                <span>${this.escapeHtml(topic)}</span>
+            </button>
+        `).join('');
+
+        track.innerHTML = createChips() + createChips(); // Duplicate for seamless loop
+
+        // Add click handlers
+        track.querySelectorAll('.topic-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                const topic = chip.dataset.topic;
+                if (this.searchInput) {
+                    this.searchInput.value = topic;
+                    this.performSearch(topic);
+                    this.searchInput.focus();
+                    // Scroll to search
+                    document.getElementById('search')?.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
         });
     }
 

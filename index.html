@@ -18,10 +18,10 @@
     rel="stylesheet">
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/variables.css">
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/reset.css?v=5">
+  <link rel="stylesheet" href="css/variables.css?v=5">
+  <link rel="stylesheet" href="css/main.css?v=5">
+  <link rel="stylesheet" href="css/animations.css?v=5">
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml"
@@ -44,12 +44,27 @@
 
       <nav class="header__nav">
         <a href="#search" class="header__link">Search</a>
-        <a href="/about.html" class="header__link">About</a>
+        <a href="/about.html" class="header__link header__link--glow">About</a>
         <a href="https://jurnal.pnj.ac.id/index.php/multinetics" target="_blank" rel="noopener"
           class="header__link">Original Site ↗</a>
       </nav>
+
+      <!-- Burger Menu (Mobile) -->
+      <button class="burger-menu" id="burgerMenu" aria-label="Toggle menu">
+        <span class="burger-menu__line"></span>
+        <span class="burger-menu__line"></span>
+        <span class="burger-menu__line"></span>
+      </button>
     </div>
   </header>
+
+  <!-- Mobile Nav -->
+  <nav class="mobile-nav" id="mobileNav">
+    <a href="#search" class="mobile-nav__link" data-close-nav>Search</a>
+    <a href="/about.html" class="mobile-nav__link">✨ About</a>
+    <a href="https://jurnal.pnj.ac.id/index.php/multinetics" target="_blank" rel="noopener"
+      class="mobile-nav__link">Original Site ↗</a>
+  </nav>
 
   <!-- Hero Section -->
   <section class="hero" id="hero">
@@ -107,6 +122,15 @@
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- Topics Marquee -->
+  <section class="topics-marquee" id="topicsMarquee">
+    <div class="topics-marquee__track" id="marqueeTrack">
+      <!-- Topics will be injected by JS -->
+    </div>
+    <div class="topics-marquee__fade topics-marquee__fade--left"></div>
+    <div class="topics-marquee__fade topics-marquee__fade--right"></div>
   </section>
 
   <!-- Filters Section -->
@@ -211,10 +235,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/7.0.0/fuse.min.js"></script>
 
   <!-- App Scripts -->
-  <script src="js/animations.js?v=2"></script>
-  <script src="js/search.js?v=2"></script>
-  <script src="js/filters.js?v=2"></script>
-  <script src="js/app.js?v=2"></script>
+  <script src="js/animations.js?v=4"></script>
+  <script src="js/search.js?v=4"></script>
+  <script src="js/filters.js?v=4"></script>
+  <script src="js/app.js?v=4"></script>
 </body>
 
 </html>
