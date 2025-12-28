@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multinetics Search | Find Journal References Fast</title>
+  <meta name="description" content="A beautiful, fast way to search through Multinetics journal articles. Find references for your thesis easily.">
+  
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- Google Fonts - Fira Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Fira+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/animations.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📚%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+  <!-- Scroll Progress -->
+  <div class="scroll-progress" aria-hidden="true">
+    <div class="scroll-progress__bar" id="scrollProgress"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a href="/" class="header__logo magnetic-btn">
+        <div class="header__logo-icon">M</div>
+        <span class="header__logo-text">Multi<span>netics</span></span>
+      </a>
+      
+      <nav class="header__nav">
+        <a href="#search" class="header__link">Search</a>
+        <a href="#about" class="header__link">About</a>
+        <a href="https://jurnal.pnj.ac.id/index.php/multinetics" target="_blank" rel="noopener" class="header__link">Original Site ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero__bg">
+      <div class="hero__bg-gradient parallax"></div>
+      <div class="hero__bg-gradient hero__bg-gradient--2 parallax"></div>
+    </div>
+    
+    <div class="container hero__content">
+      <div class="hero__badge gsap-fade-up">
+        <span class="hero__badge-dot"></span>
+        Politeknik Negeri Jakarta
+      </div>
+      
+      <h1 class="hero__title gsap-fade-up">
+        Find Your<br>
+        <span class="hero__title-highlight">Perfect Reference</span>
+      </h1>
+      
+      <p class="hero__subtitle gsap-fade-up">
+        Search through Multinetics journal articles instantly. 
+        No more frustrating navigation — just type and discover.
+      </p>
+      
+      <!-- Search Box -->
+      <div class="search-box gsap-fade-up" id="search">
+        <div class="search-box__input-wrapper">
+          <svg class="search-box__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.3-4.3"></path>
+          </svg>
+          <input 
+            type="text" 
+            class="search-box__input" 
+            id="searchInput"
+            placeholder="Search by title, author, keywords, or abstract..."
+            autocomplete="off"
+          >
+          <div class="search-box__shortcut">
+            <span class="search-box__key">⌘</span>
+            <span class="search-box__key">K</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Stats -->
+      <div class="stats gsap-fade-up">
+        <div class="stat">
+          <div class="stat__number" id="statArticles">0</div>
+          <div class="stat__label">Articles</div>
+        </div>
+        <div class="stat">
+          <div class="stat__number" id="statYears">0+</div>
+          <div class="stat__label">Years of Research</div>
+        </div>
+        <div class="stat">
+          <div class="stat__number" id="statTopics">0</div>
+          <div class="stat__label">Topic Areas</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filters Section -->
+  <section class="filters" id="filters">
+    <div class="container filters__inner">
+      <div class="filters__group">
+        <span class="filters__label">Filter by:</span>
+        <select class="filter-select" id="filterYear">
+          <option value="">All Years</option>
+        </select>
+        <select class="filter-select" id="filterVolume">
+          <option value="">All Volumes</option>
+        </select>
+      </div>
+      
+      <div class="results-count">
+        Showing <strong id="resultsCount">0</strong> articles
+      </div>
+    </div>
+  </section>
+
+  <!-- Results Section -->
+  <section class="results" id="results">
+    <div class="container">
+      <!-- Loading State -->
+      <div class="loading" id="loadingState" style="display: none;">
+        <div class="loading__spinner"></div>
+        <p class="loading__text">Loading articles...</p>
+      </div>
+      
+      <!-- Empty State -->
+      <div class="empty-state" id="emptyState" style="display: none;">
+        <div class="empty-state__icon">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.3-4.3"></path>
+          </svg>
+        </div>
+        <h3 class="empty-state__title">No articles found</h3>
+        <p class="empty-state__text">Try adjusting your search or filters to find what you're looking for.</p>
+      </div>
+      
+      <!-- No Data State -->
+      <div class="empty-state" id="noDataState">
+        <div class="empty-state__icon">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+          </svg>
+        </div>
+        <h3 class="empty-state__title">No data loaded yet</h3>
+        <p class="empty-state__text">
+          Run the scraper script to populate the database, or add articles manually to <code>data/articles.json</code>
+        </p>
+      </div>
+      
+      <!-- Results Grid -->
+      <div class="results__grid" id="resultsGrid"></div>
+    </div>
+  </section>
+
+  <!-- Article Modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal" role="dialog" aria-modal="true">
+      <div class="modal__header">
+        <button class="modal__close" id="modalClose" aria-label="Close modal">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 6 6 18"></path>
+            <path d="m6 6 12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="modal__body" id="modalBody">
+        <!-- Content injected by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer" id="about">
+    <div class="container">
+      <p class="footer__text">
+        Built with ❤️ to make thesis research easier.<br>
+        Data sourced from <a href="https://jurnal.pnj.ac.id/index.php/multinetics" target="_blank" rel="noopener">Multinetics Journal</a> — Politeknik Negeri Jakarta
+      </p>
+    </div>
+  </footer>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  
+  <!-- Fuse.js for fuzzy search -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/7.0.0/fuse.min.js"></script>
+  
+  <!-- App Scripts -->
+  <script src="js/animations.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/filters.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

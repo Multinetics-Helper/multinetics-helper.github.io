@@ -1,0 +1,208 @@
+/* GSAP Animation Helper Classes */
+
+/* Initial states for animations */
+.gsap-fade-up {
+    opacity: 0;
+    transform: translateY(40px);
+}
+
+.gsap-fade-down {
+    opacity: 0;
+    transform: translateY(-40px);
+}
+
+.gsap-fade-left {
+    opacity: 0;
+    transform: translateX(-40px);
+}
+
+.gsap-fade-right {
+    opacity: 0;
+    transform: translateX(40px);
+}
+
+.gsap-fade {
+    opacity: 0;
+}
+
+.gsap-scale {
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+.gsap-stagger>* {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+/* Split text animation ready */
+.gsap-split-text .char,
+.gsap-split-text .word {
+    display: inline-block;
+}
+
+.gsap-split-text .word {
+    margin-right: 0.25em;
+}
+
+/* Magnetic button effect */
+.magnetic-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.magnetic-btn__inner {
+    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Reveal line animation */
+.reveal-line {
+    overflow: hidden;
+}
+
+.reveal-line__inner {
+    display: block;
+    transform: translateY(100%);
+}
+
+/* Card hover tilt effect */
+.tilt-card {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.tilt-card__inner {
+    transition: transform 0.3s ease-out;
+}
+
+/* Parallax elements */
+.parallax {
+    will-change: transform;
+}
+
+/* Smooth scroll progress indicator */
+.scroll-progress {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--border-light);
+    z-index: 1001;
+}
+
+.scroll-progress__bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+    transform-origin: left;
+}
+
+/* Cursor follower (optional) */
+.cursor-follower {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    background: var(--accent-primary);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0;
+    mix-blend-mode: difference;
+    transition: width 0.3s, height 0.3s, opacity 0.3s;
+}
+
+.cursor-follower.active {
+    opacity: 0.5;
+}
+
+.cursor-follower.hovering {
+    width: 50px;
+    height: 50px;
+}
+
+/* Text highlight effect on search */
+.highlight {
+    background: linear-gradient(120deg, var(--accent-lighter) 0%, var(--accent-light) 100%);
+    border-radius: 2px;
+    padding: 0 2px;
+}
+
+/* Skeleton loading */
+.skeleton {
+    background: linear-gradient(90deg, var(--bg-tertiary) 25%, var(--border-light) 50%, var(--bg-tertiary) 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.skeleton-text {
+    height: 1em;
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--space-2);
+}
+
+.skeleton-text:last-child {
+    width: 60%;
+}
+
+/* Toast notifications */
+.toast-container {
+    position: fixed;
+    bottom: var(--space-6);
+    right: var(--space-6);
+    z-index: 3000;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.toast {
+    padding: var(--space-4) var(--space-6);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--text-sm);
+    transform: translateX(120%);
+    transition: transform var(--transition-bounce);
+}
+
+.toast.show {
+    transform: translateX(0);
+}
+
+.toast--success {
+    border-left: 4px solid var(--success);
+}
+
+.toast--error {
+    border-left: 4px solid var(--error);
+}
+
+.toast__icon {
+    flex-shrink: 0;
+}
+
+.toast__icon--success {
+    color: var(--success);
+}
+
+.toast__icon--error {
+    color: var(--error);
+}
