@@ -1,23 +1,23 @@
 /**
  * Filters Module - Multinetics Search
- * Year and volume filter management
+ * Volume and issue filter management
  */
 
 class Filters {
     constructor() {
-        this.yearFilter = document.getElementById('filterYear');
         this.volumeFilter = document.getElementById('filterVolume');
+        this.issueFilter = document.getElementById('filterIssue');
         this.activeFilters = {
-            year: null,
-            volume: null
+            volume: null,
+            issue: null
         };
         this.onFilterChange = null;
     }
 
     // Initialize filters with article data
     init(articles) {
-        this.populateYearFilter(articles);
         this.populateVolumeFilter(articles);
+        this.populateIssueFilter(articles);
         this.bindEvents();
 
         return this;
@@ -27,23 +27,6 @@ class Filters {
     setOnFilterChange(callback) {
         this.onFilterChange = callback;
         return this;
-    }
-
-    // Populate year filter dropdown
-    populateYearFilter(articles) {
-        if (!this.yearFilter) return;
-
-        const years = [...new Set(articles.map(a => a.year).filter(Boolean))].sort((a, b) => b - a);
-
-        // Clear existing options (except first)
-        this.yearFilter.innerHTML = '<option value="">All Years</option>';
-
-        years.forEach(year => {
-            const option = document.createElement('option');
-            option.value = year;
-            option.textContent = year;
-            this.yearFilter.appendChild(option);
-        });
     }
 
     // Populate volume filter dropdown
@@ -63,18 +46,35 @@ class Filters {
         });
     }
 
+    // Populate issue filter dropdown
+    populateIssueFilter(articles) {
+        if (!this.issueFilter) return;
+
+        const issues = [...new Set(articles.map(a => a.issue).filter(Boolean))].sort((a, b) => a - b);
+
+        // Clear existing options (except first)
+        this.issueFilter.innerHTML = '<option value="">All Issues</option>';
+
+        issues.forEach(issue => {
+            const option = document.createElement('option');
+            option.value = issue;
+            option.textContent = `Issue ${issue}`;
+            this.issueFilter.appendChild(option);
+        });
+    }
+
     // Bind filter events
     bindEvents() {
-        if (this.yearFilter) {
-            this.yearFilter.addEventListener('change', (e) => {
-                this.activeFilters.year = e.target.value ? parseInt(e.target.value) : null;
+        if (this.volumeFilter) {
+            this.volumeFilter.addEventListener('change', (e) => {
+                this.activeFilters.volume = e.target.value ? parseInt(e.target.value) : null;
                 this.triggerChange();
             });
         }
 
-        if (this.volumeFilter) {
-            this.volumeFilter.addEventListener('change', (e) => {
-                this.activeFilters.volume = e.target.value ? parseInt(e.target.value) : null;
+        if (this.issueFilter) {
+            this.issueFilter.addEventListener('change', (e) => {
+                this.activeFilters.issue = e.target.value ? parseInt(e.target.value) : null;
                 this.triggerChange();
             });
         }
@@ -92,13 +92,13 @@ class Filters {
         return results.filter(result => {
             const article = result.item || result;
 
-            // Year filter
-            if (this.activeFilters.year && article.year !== this.activeFilters.year) {
+            // Volume filter
+            if (this.activeFilters.volume && article.volume !== this.activeFilters.volume) {
                 return false;
             }
 
-            // Volume filter
-            if (this.activeFilters.volume && article.volume !== this.activeFilters.volume) {
+            // Issue filter
+            if (this.activeFilters.issue && article.issue !== this.activeFilters.issue) {
                 return false;
             }
 
@@ -109,19 +109,19 @@ class Filters {
     // Reset all filters
     reset() {
         this.activeFilters = {
-            year: null,
-            volume: null
+            volume: null,
+            issue: null
         };
 
-        if (this.yearFilter) this.yearFilter.value = '';
         if (this.volumeFilter) this.volumeFilter.value = '';
+        if (this.issueFilter) this.issueFilter.value = '';
 
         this.triggerChange();
     }
 
     // Check if any filter is active
     hasActiveFilters() {
-        return this.activeFilters.year !== null || this.activeFilters.volume !== null;
+        return this.activeFilters.volume !== null || this.activeFilters.issue !== null;
     }
 
     // Get unique topic keywords for potential topic filter

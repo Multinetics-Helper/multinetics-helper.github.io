@@ -374,22 +374,22 @@ class MultinecticsApp {
 
     // Update stats display
     updateStats() {
-        const years = [...new Set(this.articles.map(a => a.year).filter(Boolean))];
+        // Count unique authors
+        const allAuthors = this.articles.flatMap(a => a.authors || []);
+        const uniqueAuthors = [...new Set(allAuthors.map(a => a.toLowerCase().trim()))];
+
         const allKeywords = this.articles.flatMap(a => a.keywords || []);
         const uniqueKeywords = [...new Set(allKeywords.map(k => k.toLowerCase()))];
 
-        // Show years count (how many different years we have data for)
-        const yearsCount = years.length;
-
         if (window.animations) {
-            window.animations.updateStats(this.articles.length, yearsCount, uniqueKeywords.length);
+            window.animations.updateStats(this.articles.length, uniqueAuthors.length, uniqueKeywords.length);
         } else {
             const statArticles = document.getElementById('statArticles');
             const statYears = document.getElementById('statYears');
             const statTopics = document.getElementById('statTopics');
 
             if (statArticles) statArticles.textContent = this.articles.length;
-            if (statYears) statYears.textContent = yearsCount > 0 ? yearsCount : this.articles.length;
+            if (statYears) statYears.textContent = uniqueAuthors.length;
             if (statTopics) statTopics.textContent = uniqueKeywords.length;
         }
     }

@@ -93,7 +93,7 @@ class Animations {
     }
 
     // Update stats with actual data
-    updateStats(articles, years, topics) {
+    updateStats(articles, authors, topics) {
         const statArticles = document.getElementById('statArticles');
         const statYears = document.getElementById('statYears');
         const statTopics = document.getElementById('statTopics');
@@ -108,7 +108,12 @@ class Animations {
         }
 
         if (statYears) {
-            statYears.textContent = years + '+';
+            this.gsap.to(statYears, {
+                textContent: authors,
+                duration: 1.5,
+                ease: 'power2.out',
+                snap: { textContent: 1 }
+            });
         }
 
         if (statTopics) {
