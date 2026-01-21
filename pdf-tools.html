@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Tools | Multinetics - Proposal Skripsi Helper</title>
+    <meta name="description"
+        content="Tools untuk membantu persiapan Proposal Skripsi. Pilih halaman PDF yang dibutuhkan dan gunakan checklist untuk memastikan kelengkapan proposal.">
+    <meta name="keywords"
+        content="PDF tools, proposal skripsi, checklist, PNJ, Politeknik Negeri Jakarta, thesis preparation">
+    <meta name="author"
+        content="Pratama Varian Andika Parulian, Christian Nataniel Yosua Purba, Muhammad Abian Abdi Pratama">
+    <meta name="robots" content="index, follow">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://multinetics-helper.github.io/pdf-tools.html">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://multinetics-helper.github.io/pdf-tools.html">
+    <meta property="og:title" content="PDF Tools | Multinetics - Proposal Skripsi Helper">
+    <meta property="og:description"
+        content="Tools untuk membantu persiapan Proposal Skripsi. Pilih halaman PDF dan gunakan checklist kelengkapan.">
+    <meta property="og:image" content="https://multinetics-helper.github.io/images/og-image.png">
+    <meta property="og:site_name" content="Multinetics Helper">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://multinetics-helper.github.io/pdf-tools.html">
+    <meta name="twitter:title" content="PDF Tools | Multinetics - Proposal Skripsi Helper">
+    <meta name="twitter:description"
+        content="Tools untuk membantu persiapan Proposal Skripsi. Pilih halaman PDF dan gunakan checklist kelengkapan.">
+    <meta name="twitter:image" content="https://multinetics-helper.github.io/images/og-image.png">
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Google Fonts - Fira Sans -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Fira+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- PDF.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+    <!-- PDF-lib for creating new PDFs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/pdf-tools.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📚%3C/text%3E%3C/svg%3E">
+</head>
+
+<body class="pdf-tools-page">
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container header__inner">
+            <a href="/" class="header__logo">
+                <div class="header__logo-icon">M</div>
+                <span class="header__logo-text">Multi<span>netics</span></span>
+            </a>
+
+            <nav class="header__nav">
+                <a href="/" class="header__link">Search</a>
+                <a href="/pdf-tools.html" class="header__link header__link--active header__link--glow">PDF Tools</a>
+                <a href="/about.html" class="header__link">About</a>
+                <a href="https://jurnal.pnj.ac.id/index.php/multinetics" target="_blank" rel="noopener"
+                    class="header__link">Original Site ↗</a>
+            </nav>
+
+            <!-- Burger Menu (Mobile) -->
+            <button class="burger-menu" id="burgerMenu" aria-label="Toggle menu">
+                <span class="burger-menu__line"></span>
+                <span class="burger-menu__line"></span>
+                <span class="burger-menu__line"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Nav -->
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="/" class="mobile-nav__link">Search</a>
+        <a href="/pdf-tools.html" class="mobile-nav__link">✨ PDF Tools</a>
+        <a href="/about.html" class="mobile-nav__link">About</a>
+        <a href="https://jurnal.pnj.ac.id/index.php/multinetics" target="_blank" rel="noopener"
+            class="mobile-nav__link">Original Site ↗</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pdf-hero">
+        <div class="pdf-hero__bg">
+            <div class="pdf-hero__gradient pdf-hero__gradient--1"></div>
+            <div class="pdf-hero__gradient pdf-hero__gradient--2"></div>
+        </div>
+
+        <div class="container pdf-hero__content">
+            <span class="pdf-hero__eyebrow">📄 Proposal Skripsi Helper</span>
+            <h1 class="pdf-hero__title">
+                Prepare Your<br>
+                <span class="pdf-hero__title-accent">Perfect Proposal</span>
+            </h1>
+            <p class="pdf-hero__subtitle">
+                Upload your PDF, select the pages you need, and use the checklist below to ensure your proposal meets
+                all requirements.
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="pdf-main">
+        <div class="container">
+            <!-- Two Column Layout -->
+            <div class="pdf-layout">
+                <!-- Left Column: PDF Tool -->
+                <section class="pdf-section pdf-uploader-section" id="pdfUploader">
+                    <div class="pdf-section__header">
+                        <div class="pdf-section__icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                                <polyline points="14 2 14 8 20 8" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h2 class="pdf-section__title">PDF Page Selector</h2>
+                            <p class="pdf-section__subtitle">Upload a PDF and select specific pages to export</p>
+                        </div>
+                    </div>
+
+                    <!-- Upload Zone -->
+                    <div class="upload-zone" id="uploadZone">
+                        <div class="upload-zone__content">
+                            <div class="upload-zone__icon">
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="17 8 12 3 7 8" />
+                                    <line x1="12" y1="3" x2="12" y2="15" />
+                                </svg>
+                            </div>
+                            <h3 class="upload-zone__title">Drop your PDF here</h3>
+                            <p class="upload-zone__text">or click to browse</p>
+                            <input type="file" id="pdfInput" accept=".pdf" class="upload-zone__input">
+                        </div>
+                    </div>
+
+                    <!-- PDF Preview Area (Hidden initially) -->
+                    <div class="pdf-preview" id="pdfPreview" style="display: none;">
+                        <div class="pdf-preview__header">
+                            <div class="pdf-preview__info">
+                                <span class="pdf-preview__filename" id="pdfFilename"></span>
+                                <span class="pdf-preview__page-count" id="pdfPageCount"></span>
+                            </div>
+                            <div class="pdf-preview__actions">
+                                <button class="pdf-btn pdf-btn--secondary" id="selectAllBtn">Select All</button>
+                                <button class="pdf-btn pdf-btn--secondary" id="deselectAllBtn">Deselect All</button>
+                                <button class="pdf-btn pdf-btn--ghost" id="changePdfBtn">Change PDF</button>
+                            </div>
+                        </div>
+
+                        <!-- Page Counter Info -->
+                        <div class="page-counter" id="pageCounter">
+                            <div class="page-counter__item">
+                                <span class="page-counter__number" id="selectedCount">0</span>
+                                <span class="page-counter__label">Selected</span>
+                            </div>
+                            <div class="page-counter__divider"></div>
+                            <div class="page-counter__item">
+                                <span class="page-counter__number" id="totalCount">0</span>
+                                <span class="page-counter__label">Total Pages</span>
+                            </div>
+                            <div class="page-counter__divider"></div>
+                            <div class="page-counter__item page-counter__item--warning" id="pageWarning"
+                                style="display: none;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path
+                                        d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                                    <line x1="12" y1="9" x2="12" y2="13" />
+                                    <line x1="12" y1="17" x2="12.01" y2="17" />
+                                </svg>
+                                <span id="pageWarningText"></span>
+                            </div>
+                        </div>
+
+                        <!-- Page Grid -->
+                        <div class="page-grid page-grid--large" id="pageGrid">
+                            <!-- Pages will be rendered here -->
+                        </div>
+
+                        <!-- Export Button -->
+                        <div class="pdf-export">
+                            <button class="pdf-btn pdf-btn--primary pdf-btn--large" id="exportBtn" disabled>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="7 10 12 15 17 10" />
+                                    <line x1="12" y1="15" x2="12" y2="3" />
+                                </svg>
+                                Export Selected Pages
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Right Column: Checklist -->
+                <section class="pdf-section checklist-section" id="checklist">
+                    <div class="pdf-section__header">
+                        <div class="pdf-section__icon pdf-section__icon--checklist">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9 11l3 3L22 4" />
+                                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h2 class="pdf-section__title">Proposal Skripsi Checklist</h2>
+                            <p class="pdf-section__subtitle">Format Susunan Proposal Skripsi (Maks. 20 halaman*)</p>
+                        </div>
+                    </div>
+
+                    <!-- Page Guidelines Notice -->
+                    <div class="checklist-notice">
+                        <div class="checklist-notice__icon">ℹ️</div>
+                        <div class="checklist-notice__content">
+                            <strong>Catatan:</strong> Maksimal 20 halaman tidak termasuk lampiran, daftar isi, dan
+                            daftar tabel.
+                        </div>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="checklist-progress">
+                        <div class="checklist-progress__bar">
+                            <div class="checklist-progress__fill" id="progressFill" style="width: 0%"></div>
+                        </div>
+                        <div class="checklist-progress__text">
+                            <span id="progressText">0 of 0 items completed</span>
+                            <span id="progressPercent">0%</span>
+                        </div>
+                    </div>
+
+                    <!-- Checklist Groups -->
+                    <div class="checklist-groups" id="checklistGroups">
+
+                        <!-- Bagian Awal -->
+                        <div class="checklist-group" data-group="bagian-awal">
+                            <div class="checklist-group__header">
+                                <div class="checklist-group__info">
+                                    <h3 class="checklist-group__title">📑 Bagian Awal</h3>
+                                    <span class="checklist-group__count">0/2</span>
+                                </div>
+                                <button class="checklist-group__toggle" aria-expanded="true">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="6 9 12 15 18 9" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="checklist-group__content">
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-item__checkbox" data-item="sampul">
+                                    <span class="checklist-item__checkmark"></span>
+                                    <div class="checklist-item__content">
+                                        <span class="checklist-item__title">Halaman Sampul</span>
+                                        <span class="checklist-item__desc">TI: Teknik Informatika | TMJ: Teknik
+                                            Multimedia dan Jaringan | TMD: Teknik Multimedia Digital</span>
+                                    </div>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-item__checkbox" data-item="persetujuan">
+                                    <span class="checklist-item__checkmark"></span>
+                                    <div class="checklist-item__content">
+                                        <span class="checklist-item__title">Halaman Persetujuan Sidang Proposal</span>
+                                        <span class="checklist-item__desc">Dengan tanda tangan Dosen Pembimbing. Jika
+                                            kelompok &gt;2 orang, tuliskan nama anggota dan sub judul dengan pembimbing
+                                            masing-masing</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Bagian Isi: BAB I -->
+                        <div class="checklist-group" data-group="bab-1">
+                            <div class="checklist-group__header">
+                                <div class="checklist-group__info">
+                                    <h3 class="checklist-group__title">📝 BAB I - Pendahuluan</h3>
+                                    <span class="checklist-group__count">0/5</span>
+                                </div>
+                                <button class="checklist-group__toggle" aria-expanded="true">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="6 9 12 15 18 9" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="checklist-group__content">
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-item__checkbox" data-item="latar-belakang">
+                                    <span class="checklist-item__checkmark"></span>
+                                    <div class="checklist-item__content">
+                                        <span class="checklist-item__title">1.1 Latar Belakang</span>
+                                    </div>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-item__checkbox"
+                                        data-item="perumusan-masalah">
+                                    <span class="checklist-item__checkmark"></span>
+                                    <div class="checklist-item__content">
+                                        <span class="checklist-item__title">1.2 Perumusan Masalah</span>
+                                    </div>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-item__checkbox" data-item="batasan-masalah">
+                                    <span class="checklist-item__checkmark"></span>
+                                    <div class="checklist-item__content">
+                                        <span class="checklist-item__title">1.3 Batasan Masalah</span>
+                                    </div>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-item__checkbox" data-item="tujuan-manfaat">
+                                    <span class="checklist-item__checkmark"></span>
+                                    <div class="checklist-item__content">
+                                        <span class="checklist-item__title">1.4 Tujuan dan Manfaat</span>
+                                    </div>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-item__checkbox" data-item="sistematika">
+                                    <span class="checklist-item__checkmark"></span>
+                                    <div class="checklist-item__content">
+                                        <span class="checklist-item__title">1.5 Sistematika Penulisan</span>
+                                        <span class="checklist-item__desc">Menguraikan susunan bab yang akan ada di
+                                            laporan penelitian</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Bagian Isi: BAB II -->
+                        <div class="checklist-group" data-group="bab-2">
+                            <div class="checklist-group__header">
+                                <div class="checklist-group__info">
+                                    <h3 class="checklist-group__title">📚 BAB II - Tinjauan Pustaka</h3>
+                                    <span class="checklist-group__count">0/1</span>
+                                </div>
+                                <button class="checklist-group__toggle" aria-expanded="true">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="6 9 12 15 18 9" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="checklist-group__content">
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-item__checkbox"
+                                        data-item="tinjauan-pustaka">
+                                    <span class="checklist-item__checkmark"></span>
+                                    <div class="checklist-item__content">
+                                        <span class="checklist-item__title">2.1 Tinjauan Pustaka</span>
+                                        <span class="checklist-item__desc">Teori relevan & penelitian terdahulu
+                                            (state-of-the-art)</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Bagian Isi: BAB III -->
+                        <div class="checklist-group" data-group="bab-3">
+                            <div class="checklist-group__header">
+                                <div class="checklist-group__info">
+                                    <h3 class="checklist-group__title">🔬 BAB III - Metode Penelitian</h3>
+                                    <span class="checklist-group__count">0/6</span>
+                                </div>
+                                <button class="checklist-group__toggle" aria-expanded="true">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="6 9 12 15 18 9" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="checklist-group__content">
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-item__checkbox"
+                                        data-item="rancangan-penelitian">
+                                    <span class="checklist-item__checkmark"></span>
+                                    <div class="checklist-item__content">
+                                        <span class="checklist-item__title">3.1 Rancangan Penelitian</span>
+                                        <span class="checklist-item__desc">Desain & alur sistematis penelitian berbasis
+                                            teknologi. Termasuk pendekatan penelitian, objek penelitian,
+                                            variabel/komponen, dan tahapan. Visualisasikan dengan flowchart atau diagram
+                                            blok</span>
+                                    </div>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-item__checkbox" data-item="sumber-data">
+                                    <span class="checklist-item__checkmark"></span>
+                                    <div class="checklist-item__content">
+                                        <span class="checklist-item__title">3.2 Sumber Data</span>
+                                        <span class="checklist-item__desc">Populasi, sampel, instrumen</span>
+                                    </div>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-item__checkbox"
+                                        data-item="teknik-pengumpulan">
+                                    <span class="checklist-item__checkmark"></span>
+                                    <div class="checklist-item__content">
+                                        <span class="checklist-item__title">3.3 Teknik Pengumpulan Data</span>
+                                        <span class="checklist-item__desc">Wawancara, survei, observasi, dll.</span>
+                                    </div>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-item__checkbox" data-item="teknik-analisis">
+                                    <span class="checklist-item__checkmark"></span>
+                                    <div class="checklist-item__content">
+                                        <span class="checklist-item__title">3.4 Teknik Analisis Data</span>
+                                        <span class="checklist-item__desc">Statistik, analisis tematik,
+                                            Model/Framework/Teknik yang digunakan</span>
+                                    </div>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-item__checkbox"
+                                        data-item="jadwal-penelitian">
+                                    <span class="checklist-item__checkmark"></span>
+                                    <div class="checklist-item__content">
+                                        <span class="checklist-item__title">3.5 Jadwal Penelitian</span>
+                                        <span class="checklist-item__desc">Gantt Chart</span>
+                                    </div>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-item__checkbox" data-item="rincian-biaya">
+                                    <span class="checklist-item__checkmark"></span>
+                                    <div class="checklist-item__content">
+                                        <span class="checklist-item__title">3.6 Rincian Biaya</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Bagian Akhir -->
+                        <div class="checklist-group" data-group="bagian-akhir">
+                            <div class="checklist-group__header">
+                                <div class="checklist-group__info">
+                                    <h3 class="checklist-group__title">📎 Bagian Akhir</h3>
+                                    <span class="checklist-group__count">0/2</span>
+                                </div>
+                                <button class="checklist-group__toggle" aria-expanded="true">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="6 9 12 15 18 9" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="checklist-group__content">
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-item__checkbox" data-item="daftar-pustaka">
+                                    <span class="checklist-item__checkmark"></span>
+                                    <div class="checklist-item__content">
+                                        <span class="checklist-item__title">Daftar Pustaka</span>
+                                        <span class="checklist-item__desc">Gunakan Harvard Style. Sumber harus dapat
+                                            dipertanggungjawabkan (jurnal ilmiah, buku teks, prosiding seminar,
+                                            dll.)</span>
+                                    </div>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-item__checkbox" data-item="lampiran">
+                                    <span class="checklist-item__checkmark"></span>
+                                    <div class="checklist-item__content">
+                                        <span class="checklist-item__title">Lampiran</span>
+                                        <span class="checklist-item__desc">Data sheet, gambar, pekerjaan, dll. (Tidak
+                                            termasuk hitungan 20 halaman)</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Dokumen Pendaftaran Sempro -->
+                        <div class="checklist-group checklist-group--highlight" data-group="dokumen-sempro">
+                            <div class="checklist-group__header">
+                                <div class="checklist-group__info">
+                                    <h3 class="checklist-group__title">📋 Dokumen Pendaftaran Sempro</h3>
+                                    <span class="checklist-group__count">0/9</span>
+                                </div>
+                                <button class="checklist-group__toggle" aria-expanded="true">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="6 9 12 15 18 9" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="checklist-group__content">
+                                <!-- Registration Form Link -->
+                                <a href="https://docs.google.com/forms/d/e/1FAIpQLScQGehweAsmRjA_9us3AMs57A_nLfNnFFcm2-m60X1YSf6ogA/viewform"
+                                    target="_blank" rel="noopener" class="sempro-form-link">
+                                    <span class="sempro-form-link__icon">📝</span>
+                                    <span class="sempro-form-link__text">
+                                        <strong>Buka Form Pendaftaran Sempro</strong>
+                                        <small>Google Forms - Klik untuk membuka</small>
+                                    </span>
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                                        <polyline points="15 3 21 3 21 9" />
+                                        <line x1="10" y1="14" x2="21" y2="3" />
+                                    </svg>
+                                </a>
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-item__checkbox" data-item="abstrak-form">
+                                    <span class="checklist-item__checkmark"></span>
+                                    <div class="checklist-item__content">
+                                        <span class="checklist-item__title">Abstrak</span>
+                                        <span class="checklist-item__desc">Siapkan abstrak untuk diisi di form
+                                            pendaftaran</span>
+                                    </div>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-item__checkbox" data-item="metode-tahapan">
+                                    <span class="checklist-item__checkmark"></span>
+                                    <div class="checklist-item__content">
+                                        <span class="checklist-item__title">Metode/Tahapan Penelitian</span>
+                                        <span class="checklist-item__desc">Format: Tahap 1 ...; Tahap 2 ...; Tahap 3
+                                            ...; dst</span>
+                                    </div>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-item__checkbox" data-item="form-f1">
+                                    <span class="checklist-item__checkmark"></span>
+                                    <div class="checklist-item__content">
+                                        <span class="checklist-item__title">Form F1 - Persetujuan Maju Sidang</span>
+                                        <span class="checklist-item__desc">PDF, maks 10MB. Ditandatangani oleh
+                                            pembimbing. <a href="https://s.pnj.ac.id/FormF1" target="_blank"
+                                                rel="noopener">📄 Template F1</a></span>
+                                    </div>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-item__checkbox" data-item="form-f2">
+                                    <span class="checklist-item__checkmark"></span>
+                                    <div class="checklist-item__content">
+                                        <span class="checklist-item__title">Link Prefilled F2 (Google Docs)</span>
+                                        <span class="checklist-item__desc">⚠️ Bukan PDF! Upload <strong>LINK</strong> ke
+                                            Google Docs yang sudah diisi data diri. <a href="https://s.pnj.ac.id/FormF2"
+                                                target="_blank" rel="noopener">📝 Template F2</a></span>
+                                    </div>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-item__checkbox" data-item="form-f3">
+                                    <span class="checklist-item__checkmark"></span>
+                                    <div class="checklist-item__content">
+                                        <span class="checklist-item__title">Link Prefilled F3 (Google Docs)</span>
+                                        <span class="checklist-item__desc">⚠️ Bukan PDF! Upload <strong>LINK</strong> ke
+                                            Google Docs yang sudah diisi data diri. <a href="https://s.pnj.ac.id/FormF3"
+                                                target="_blank" rel="noopener">📝 Template F3</a></span>
+                                    </div>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-item__checkbox" data-item="file-proposal">
+                                    <span class="checklist-item__checkmark"></span>
+                                    <div class="checklist-item__content">
+                                        <span class="checklist-item__title">File Proposal (Disetujui Pembimbing)</span>
+                                        <span class="checklist-item__desc">PDF, maks 10MB. Pastikan sudah disetujui
+                                            pembimbing</span>
+                                    </div>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-item__checkbox" data-item="logbook">
+                                    <span class="checklist-item__checkmark"></span>
+                                    <div class="checklist-item__content">
+                                        <span class="checklist-item__title">Log Book Bimbingan</span>
+                                        <span class="checklist-item__desc">Minimal 3x bimbingan. ⚠️ Jangan lupa
+                                            <strong>TTD Dosen Pembimbing</strong> di setiap bimbingan!</span>
+                                    </div>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-item__checkbox"
+                                        data-item="bukti-registrasi">
+                                    <span class="checklist-item__checkmark"></span>
+                                    <div class="checklist-item__content">
+                                        <span class="checklist-item__title">Bukti Registrasi Semester Genap</span>
+                                        <span class="checklist-item__desc">Maks 10MB</span>
+                                    </div>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" class="checklist-item__checkbox" data-item="turnitin">
+                                    <span class="checklist-item__checkmark"></span>
+                                    <div class="checklist-item__content">
+                                        <span class="checklist-item__title">Hasil Turnitin</span>
+                                        <span class="checklist-item__desc">PDF, maksimal similarity 20%</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Checklist Actions -->
+                    <div class="checklist-actions">
+                        <button class="pdf-btn pdf-btn--secondary" id="resetChecklistBtn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                                <path d="M3 3v5h5" />
+                            </svg>
+                            Reset Checklist
+                        </button>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer__text">
+                Built with ❤️ to make thesis research easier.<br>
+                Data sourced from <a href="https://jurnal.pnj.ac.id/index.php/multinetics" target="_blank"
+                    rel="noopener">Multinetics Journal</a> — Politeknik Negeri Jakarta
+            </p>
+        </div>
+    </footer>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="js/pdf-tools.js"></script>
+</body>
+
+</html>
